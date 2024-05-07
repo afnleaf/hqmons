@@ -1,0 +1,12 @@
+services:
+
+  frontend:
+    build:
+      context: ./server
+    ports:
+      - 4444:4444
+    container_name: pokemon_image_server
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./pokemon_art:/app/pokemon_art

@@ -1,0 +1,21 @@
+{
+  "name": "hqmons",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "prod": "bun run src/index.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@pkmn/dex": "^0.9.4",
+    "@pkmn/types": "^4.0.0",
+    "elysia": "^1.0.16"
+  }
+}

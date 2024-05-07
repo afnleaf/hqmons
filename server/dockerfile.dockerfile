@@ -1,0 +1,17 @@
+# image
+FROM oven/bun:latest
+
+# where are we working
+WORKDIR /app
+
+# copy package json to directory
+COPY ./package.json .
+
+# install dependencies
+RUN bun install
+
+# copy all files in this directory to working directory inside container
+COPY . .
+
+# some scripts
+CMD [ "bun", "run", "dev"]
