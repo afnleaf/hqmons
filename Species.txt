@@ -1,0 +1,58 @@
+Clodsire
+{
+  exists: true,
+  tags: [],
+  num: 980,
+  name: "Clodsire",
+  types: [ "Poison", "Ground" ],
+  baseStats: {
+    hp: 130,
+    atk: 75,
+    def: 60,
+    spa: 45,
+    spd: 100,
+    spe: 20
+  },
+  abilities: {
+    "0": "Poison Point",
+    "1": "Water Absorb",
+    H: "Unaware"
+  },
+  weightkg: 223,
+  prevo: "Wooper-Paldea",
+  evoLevel: 20,
+  eggGroups: [ "Water 1", "Field" ],
+  tier: "OU",
+  doublesTier: "(DUU)",
+  id: "clodsire",
+  fullname: "pokemon: Clodsire",
+  effectType: "Pokemon",
+  kind: "Species",
+  gen: 9,
+  shortDesc: "",
+  desc: "",
+  isNonstandard: null,
+  duration: undefined,
+  baseSpecies: "Clodsire",
+  forme: "",
+  baseForme: "",
+  evos: [],
+  nfe: false,
+  canHatch: false,
+  genderRatio: {
+    M: 0.5,
+    F: 0.5
+  },
+  requiredItems: undefined,
+  bst: 430,
+  weighthg: 2230,
+  unreleasedHidden: false,
+  maleOnlyHidden: false,
+  isMega: undefined,
+  gmaxUnreleased: false,
+  cannotDynamax: false,
+  forceTeraType: undefined,
+  battleOnly: undefined,
+  changesFrom: undefined,
+  toString: [Function: toString]
+}
