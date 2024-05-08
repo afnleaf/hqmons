@@ -1,29 +1,6 @@
-/*
-import {Dex} from '@pkmn/dex';
-
-const mons = Dex.species.all();
-mons.forEach(pokemon => {
-    if(pokemon.isNonstandard === null) {
-        //console.log(pokemon);
-        console.log(pokemon.name);
-        const position = pokemon.name.indexOf("-");
-        if (position !== -1) {
-            const sliced = pokemon.name.slice(position);
-            console.log(`${pokemon.num}${sliced}.png`);
-        } else {
-            console.log(`${pokemon.num}.png`);
-        }
-
-        
-    }
-});
-*/
-
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-
-const directoryPath = "../pokemon_art"
-const filePaths = await getFiles(directoryPath);
+import {Dex} from '@pkmn/dex';
 
 // borrowed from some stack overflow page
 async function getFiles( directoryPath: string ) {
@@ -36,14 +13,6 @@ async function getFiles( directoryPath: string ) {
     catch (err) {
         console.error( err );
     }
-}
-
-// Regular expression to match numeric and non-numeric parts
-const pattern = /(\d+)|([^\d]+)/g;
-
-// elper function to split a string into segments
-function splitIntoSegments(filename: string) {
-    return filename.match(pattern) || [];
 }
 
 // sort strings alphanumerically
@@ -108,8 +77,24 @@ function naturalSort(a: string, b: string) {
     return 0;
 }
 
+const directoryPath = "../pokemon_art";
+const filePaths = await getFiles(directoryPath);
 if(filePaths) {
     filePaths.sort(naturalSort);
 }
-
 console.log(filePaths);
+
+const mons = Dex.species.all();
+mons.forEach(pokemon => {
+    if(pokemon.isNonstandard === null) {
+        //console.log(pokemon);
+        console.log(pokemon.name);
+        const position = pokemon.name.indexOf("-");
+        if (position !== -1) {
+            const sliced = pokemon.name.slice(position);
+            console.log(`${pokemon.num}${sliced}.png`);
+        } else {
+            console.log(`${pokemon.num}.png`);
+        }
+    }
+});
