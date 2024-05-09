@@ -25,4 +25,6 @@ We checked /pikachu and /pikachu-starter, that works
 
 too many? seems like we hit a limit at 996 routes
 why?
+So it turns out the line `Oricorio-Pa'u,741-pompom.png` was the problem.
+The apostrophe is not allowed in HTTP routes.
 ```

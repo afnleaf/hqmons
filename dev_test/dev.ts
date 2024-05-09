@@ -1,6 +1,8 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import {Dex, Species} from '@pkmn/dex';
+import { Dex } from '@pkmn/dex';
+//"@pkmn/dex": "^0.9.4",
+//"@pkmn/types": "^4.0.0",
 
 // borrowed from some stack overflow page
 async function getFiles(directoryPath: string) {
