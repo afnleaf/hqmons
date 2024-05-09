@@ -17,4 +17,12 @@ We can either make a large csv file and then do some scripting to help bind each
 Or we can rename the files and then create bindings to the route based on the filename minus the extension
 Or we can make the extension add .png with the routes being .png
 
+We decided to do the csv method.
+
+Current issue: Conflicting routes or too many routes?
+
+We checked /pikachu and /pikachu-starter, that works
+
+too many? seems like we hit a limit at 996 routes
+why?
 ```
