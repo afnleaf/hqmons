@@ -20,6 +20,7 @@ const app = new Elysia();
 
 // serve index
 app.get("/", () => compressor("./public/index.html"));
+app.get("/htmx", () => compressor("./public/htmx.min.js"));
 
 // make routes based on csv file
 const listRoutes: string[] = [];
@@ -51,8 +52,6 @@ app.get("/home", () => {
     html += `</pre><hr>`;
     return html;
 });
-
-
 
 // port
 app.listen(PORT)
