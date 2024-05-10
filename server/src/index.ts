@@ -22,6 +22,7 @@ const app = new Elysia();
 app.get("/", () => compressor("./public/index.html"));
 
 // make routes based on csv file
+const listRoutes: string[] = [];
 const dirPath = "./pokemon_art/";
 for(const row of csv) {
     //console.log(row);
@@ -33,18 +34,21 @@ for(const row of csv) {
         name = name.replace("'", "%27");
     }
     const routePath: string = `/${name}`;
+    listRoutes.push(routePath);
     const filePath: string = `${dirPath}${row.file}`;
     console.log(`route: ${routePath} for ${filePath}`);
     app.get(routePath, () => compressor(filePath));
     //app.get(routePath, () => Bun.file(filePath));
 }
 
-// create the body
-app.put("/home", () => {
+// create the body the old fashioned way
+app.get("/home", () => {
     let html: string = ``;
-    html += `
-        <p>hello</p>
-    `;
+    html += `<h1>Index of /pokemon_art/</h1><hr><pre>`;
+    listRoutes.forEach(route => {
+        html += `<a href="${route}">${route}</a><br>`;
+    });
+    html += `</pre><hr>`;
     return html;
 });
 
