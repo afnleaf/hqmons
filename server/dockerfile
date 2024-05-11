@@ -1,17 +1,23 @@
 # image
 FROM oven/bun:latest
 
+# install curl
+RUN apt-get update && apt-get install -y curl
+
 # where are we working
 WORKDIR /app
 
 # copy package json to directory
 COPY ./package.json .
 
-# install dependencies
+# install bun dependencies
 RUN bun install
 
 # copy all files in this directory to working directory inside container
 COPY . .
+
+# install htmx
+RUN curl -o /app/public/htmx.min.js https://unpkg.com/htmx.org@1.9.12/dist/htmx.min.js
 
 # some scripts
 CMD [ "bun", "run", "dev"]
