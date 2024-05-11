@@ -7,7 +7,7 @@ import compressor from "./compressor.ts";
 const PORT = process.env.PORT || 4444;
  
 // parse csv file with binds
-const filePath = "src/dict.csv";
+const filePath = "./src/dict.csv";
 const dictFile = Bun.file(filePath);
 type pokepath = { 
     name: string, 
@@ -15,12 +15,12 @@ type pokepath = {
 };
 const csv: pokepath[] = parse(await dictFile.text(), {header: true}) as pokepath[];
 
-// make elysia app
-const app = new Elysia();
+// make elysia server
+const server = new Elysia();
 
 // serve index
-app.get("/", () => compressor("./public/index.html"));
-app.get("/htmx", () => compressor("./public/htmx.min.js"));
+server.get("/", () => compressor("./public/index.html"));
+server.get("/htmx", () => compressor("./public/htmx.min.js"));
 
 // make routes based on csv file
 const listRoutes: string[] = [];
@@ -38,12 +38,12 @@ for(const row of csv) {
     listRoutes.push(routePath);
     const filePath: string = `${dirPath}${row.file}`;
     console.log(`route: ${routePath} for ${filePath}`);
-    app.get(routePath, () => compressor(filePath));
-    //app.get(routePath, () => Bun.file(filePath));
+    server.get(routePath, () => compressor(filePath));
+    //server.get(routePath, () => Bun.file(filePath));
 }
 
 // create the body the old fashioned way
-app.get("/home", () => {
+server.get("/home", () => {
     let html: string = ``;
     html += `<h1>Index of /pokemon_art/</h1><hr><pre>`;
     listRoutes.forEach(route => {
@@ -54,9 +54,9 @@ app.get("/home", () => {
 });
 
 // port
-app.listen(PORT)
+server.listen(PORT)
 
 // hello we up
 console.log(
-    `Frontend is running at  http://${app.server?.hostname}:${app.server?.port}`
+    `Frontend is running at  http://${server.server?.hostname}:${server.server?.port}`
 );

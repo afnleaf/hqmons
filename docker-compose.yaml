@@ -9,4 +9,4 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./pokemon_art:/app/pokemon_art
+      - ./pokemon_art:/server/pokemon_art
