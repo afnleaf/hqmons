@@ -37,5 +37,7 @@ goldd.uk
 mimiky.uk
 mukmukm.uk
 foong.us
+
+Fix Sirfetch’d, weird apostrophe issue?
 ```
 

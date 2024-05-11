@@ -34,6 +34,9 @@ for(const row of csv) {
     if(name.includes("'")) {
         name = name.replace("'", "%27");
     }
+    if(name.includes("’")) {
+        name = name.replace("’", "%R1");
+    }
     const routePath: string = `/${name}`;
     listRoutes.push(routePath);
     const filePath: string = `${dirPath}${row.file}`;
