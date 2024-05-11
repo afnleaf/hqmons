@@ -27,4 +27,15 @@ too many? seems like we hit a limit at 996 routes
 why?
 So it turns out the line `Oricorio-Pa'u,741-pompom.png` was the problem.
 The apostrophe is not allowed in HTTP routes.
+
+We figured out htmx loading.
+
+domain name time
+.uk names are super cheap
+chiy.uk <- selected
+goldd.uk
+mimiky.uk
+mukmukm.uk
+foong.us
 ```
+
