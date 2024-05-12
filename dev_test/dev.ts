@@ -1,8 +1,10 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { Dex } from '@pkmn/dex';
-//"@pkmn/dex": "^0.9.4",
-//"@pkmn/types": "^4.0.0",
+import {createReadStream} from 'node:fs';
+import {imageDimensionsFromStream} from 'image-dimensions';
+import sizeOf from "image-size";
+
 
 // borrowed from some stack overflow page
 async function getFiles(directoryPath: string) {
@@ -107,10 +109,20 @@ mons.forEach(pokemon => {
 
 if(filePaths) {
     filePaths.sort(naturalSort);
-    
+    filePaths.forEach(async filepath => {
+        //const stream = createReadStream(filepath);
+        //console.log(await imageDimensionsFromStream(stream));
+        
+        const d = sizeOf(`../pokemon_art/${filepath}`);
+        if(d.width !== d.height) {
+            console.log(d.width, d.height);
+            console.log(filepath);
+        }
+    });
+    /*
     for (let i = 0; i < Math.max(allPokemon.length, filePaths.length); i++) {
         console.log(`${allPokemon[i]},${filePaths[i]}`);
     }
-    
+    */
     //console.log(filePaths);
 }
