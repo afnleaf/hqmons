@@ -3,6 +3,7 @@ import { Elysia } from "elysia";
 import parse from "csv-simple-parser";
 // src modules
 import compressor from "./compressor.ts";
+import encoder from "./encoder.ts";
 
 const PORT = process.env.PORT || 4444;
  
@@ -23,34 +24,91 @@ server.get("/", () => compressor("./public/index.html"));
 server.get("/htmx", () => compressor("./public/htmx.min.js"));
 
 // make routes based on csv file
-const listRoutes: string[] = [];
-const dirPath = "./pokemon_art/";
+const listRoutesFull: string[] = [];
+const listRoutes1024: string[] = [];
+const listRoutes256: string[] = [];
+const dirPathFull = "./pokemon_art/";
+const dirPath1024 = "./pokemon_art_1024/";
+const dirPath256 = "./pokemon_art_256/";
 for(const row of csv) {
     //console.log(row);
+    // get name of pokemon
     let name: string = row.name.toLowerCase().toString();
-    if(name.includes(" ")) {
-        name = name.replace(" ", "%20");
-    }
-    if(name.includes("’")) {
-        name = name.replace("’", "'");
-    }
-    if(name.includes("'")) {
-        name = name.replace("'", "%27");
-    }
-    const routePath: string = `/${name}`;
-    listRoutes.push(routePath);
-    const filePath: string = `${dirPath}${row.file}`;
-    console.log(`route: ${routePath} for ${filePath}`);
-    server.get(routePath, () => compressor(filePath));
+    // encode name as route, removing bad characters
+    name = encoder(name);
+    // create route paths
+    const routePathFull: string = `/full/${name}`;
+    const routePath1024: string = `/1024/${name}`;
+    const routePath256: string = `/256/${name}`;
+    // add routes to list
+    listRoutesFull.push(routePathFull);
+    listRoutes1024.push(routePath1024);
+    listRoutes256.push(routePath256);
+    // create filepaths
+    const filePathFull: string = `${dirPathFull}${row.file}`;
+    const filePath1024: string = `${dirPath1024}${row.file}`;
+    const filePath256: string = `${dirPath256}${row.file}`;
+    // create server routes
+    server.get(routePathFull, () => compressor(filePathFull));
+    server.get(routePath1024, () => compressor(filePath1024));
+    server.get(routePath256, () => compressor(filePath256));
     //server.get(routePath, () => Bun.file(filePath));
+    // print
+    console.log(`route: ${routePathFull} for ${filePathFull}`);
+    console.log(`route: ${routePath1024} for ${filePath1024}`);
+    console.log(`route: ${routePath256} for ${filePath256}`);
 }
 
-// create the body the old fashioned way
+// create html the old fashioned way
+/*
 server.get("/home", () => {
     let html: string = ``;
+    html += `<h1>Index of server</h1><hr><pre>`;
+    html += `<a href="/full">/full</a><br>`;
+    html += `<a href="/1024">/1024</a><br>`;
+    html += `<a href="/256">/256</a><br>`;
+    html += `</pre><hr>`;
+    return html;
+});
+*/
+server.get("/home", () => {
+    let html: string = ``;
+    html += `<h1>Index of server</h1><hr><pre>`;
+    html += `<a href="/full" hx-get="/full" hx-target="#content">/full</a><br>`;
+    html += `<a href="/1024" hx-get="/1024" hx-target="#content">/1024</a><br>`;
+    html += `<a href="/256" hx-get="/256" hx-target="#content">/256</a><br>`;
+    html += `</pre><hr>`;
+    return html;
+});
+
+server.get("/full", () => {
+    let html: string = ``;
     html += `<h1>Index of /pokemon_art/</h1><hr><pre>`;
-    listRoutes.forEach(route => {
-        html += `<a href="${route}">${route}</a><br>`;
+    html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
+    listRoutesFull.forEach(route => {
+        html += `<a href="${route}" hx-boost="false">${route}</a><br>`;
+    });
+    html += `</pre><hr>`;
+    return html;
+});
+
+server.get("/1024", () => {
+    let html: string = ``;
+    html += `<h1>Index of /pokemon_art_1024/</h1><hr><pre>`;
+    html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
+    listRoutes1024.forEach(route => {
+        html += `<a href="${route}" hx-boost="false">${route}</a><br>`;
+    });
+    html += `</pre><hr>`;
+    return html;
+});
+
+server.get("/256", () => {
+    let html: string = ``;
+    html += `<h1>Index of /pokemon_art_256/</h1><hr><pre>`;
+    html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
+    listRoutes256.forEach(route => {
+        html += `<a href="${route}" hx-boost="false">${route}</a><br>`;
     });
     html += `</pre><hr>`;
     return html;

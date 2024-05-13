@@ -10,3 +10,5 @@ services:
     tty: true
     volumes:
       - ./pokemon_art:/server/pokemon_art
+      - ./pokemon_art_1024:/server/pokemon_art_1024
+      - ./pokemon_art_256:/server/pokemon_art_256
