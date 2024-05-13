@@ -1,5 +1,8 @@
 pokemon_art
 pokemon_art_copy
+pokemon_art_resized
+pokemon_art_256
+pokemon_art_1024
 node_modules
 .env
 server/bun.lockb

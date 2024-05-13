@@ -1,9 +1,8 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { Dex } from '@pkmn/dex';
-import {createReadStream} from 'node:fs';
-import {imageDimensionsFromStream} from 'image-dimensions';
 import sizeOf from "image-size";
+import sharp from 'sharp';
 
 
 // borrowed from some stack overflow page
@@ -106,23 +105,31 @@ mons.forEach(pokemon => {
     */
 });
 
-
+const size = 256;
 if(filePaths) {
     filePaths.sort(naturalSort);
-    filePaths.forEach(async filepath => {
-        //const stream = createReadStream(filepath);
-        //console.log(await imageDimensionsFromStream(stream));
-        
-        const d = sizeOf(`../pokemon_art/${filepath}`);
-        if(d.width !== d.height) {
-            console.log(d.width, d.height);
-            console.log(filepath);
-        }
-    });
+    //console.log(filePaths);
     /*
     for (let i = 0; i < Math.max(allPokemon.length, filePaths.length); i++) {
         console.log(`${allPokemon[i]},${filePaths[i]}`);
     }
     */
-    //console.log(filePaths);
+    /*
+    filePaths.forEach(filepath => {
+        const d = sizeOf(`../pokemon_art/${filepath}`);
+        if(d.width !== d.height) {
+            console.log(d.width, d.height);
+            console.log(filepath);
+        }  
+    });
+    */
+    await Promise.all(filePaths.map(async (filepath) => {
+        sharp(`../pokemon_art/${filepath}`)
+            .resize(size, size)
+            .toFile(`../pokemon_art_${size.toString()}/${filepath}`)
+            .then(() => {
+                console.log(filepath);
+            });
+    }));
+    
 }

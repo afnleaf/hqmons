@@ -39,5 +39,12 @@ mukmukm.uk
 foong.us
 
 Fix Sirfetch’d, weird apostrophe issue?
+
+images not square, we fixed
+
+now adding images of different sizes, 
+full size
+1024x1024
+256x256
 ```
 

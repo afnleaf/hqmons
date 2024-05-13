@@ -11,7 +11,7 @@
   "dependencies": {
     "@pkmn/dex": "^0.9.4",
     "@pkmn/types": "^4.0.0",
-    "image-dimensions": "^2.3.0",
-    "image-size": "^1.1.1"
+    "image-size": "^1.1.1",
+    "sharp": "^0.33.3"
   }
 }
