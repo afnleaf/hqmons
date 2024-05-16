@@ -124,6 +124,13 @@ server.get("/256", () => {
     return html;
 });
 
+// post request to return encoded route
+// curl -X POST http://localhost:4444/getroute -H "Content-Type: text/plain" -d 'flutter mane'
+// curl.exe -X POST http://localhost:4444/getroute -H "Content-Type: text/plain" -d 'flutter mane'
+server.post("/getroute", async (content) => {
+    return encoder(await content.request.text());
+});
+
 // port
 server.listen(PORT)
 
