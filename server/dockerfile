@@ -6,7 +6,7 @@ FROM oven/bun:latest
     #apt-get update && apt-get install -y curl
 
 # update debian
-RUN apt-get update
+#RUN apt-get update
 
 # install curl
 RUN apt-get install -y curl
