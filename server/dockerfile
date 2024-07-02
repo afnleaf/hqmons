@@ -2,8 +2,14 @@
 FROM oven/bun:latest
 
 # install curl
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 && \
-    apt-get update && apt-get install -y curl
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 && \
+    #apt-get update && apt-get install -y curl
+
+# update debian
+RUN apt-get update
+
+# install curl
+RUN apt-get install -y curl
 
 # where are we working
 WORKDIR /server
