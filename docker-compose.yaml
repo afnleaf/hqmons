@@ -1,6 +1,6 @@
 services:
 
-  frontend:
+  server:
     build:
       context: ./server
     ports:
