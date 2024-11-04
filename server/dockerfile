@@ -3,13 +3,13 @@ FROM oven/bun:latest
 
 # install curl
 #RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 && \
-    #apt-get update && apt-get install -y curl
+#    apt-get update && apt-get install -y curl
 
 # update debian
 #RUN apt-get update
 
 # install curl
-RUN apt-get install -y curl
+#RUN apt-get install -y curl
 
 # where are we working
 WORKDIR /server
@@ -24,7 +24,7 @@ RUN bun install
 COPY . .
 
 # install htmx
-RUN curl -o /server/public/htmx.min.js https://unpkg.com/htmx.org@1.9.12/dist/htmx.min.js
+#RUN curl -o /server/public/htmx.min.js https://unpkg.com/htmx.org@1.9.12/dist/htmx.min.js
 
 # some scripts
 CMD [ "bun", "run", "dev"]

@@ -1,3 +1,5 @@
+//index.ts
+
 // node modules
 import { Elysia } from "elysia";
 import { html } from '@elysiajs/html'
@@ -86,6 +88,7 @@ server.get("/home", () => {
     html += `<a href="/256">/256</a><br>`;
     html += `</pre><hr></div>`;
     return html;
+    //return new Response(compressor(html));
 });
 
 server.get("/full", () => {
@@ -98,6 +101,7 @@ server.get("/full", () => {
     });
     html += `</pre><hr></div>`;
     return html;
+    //return new Response(compressor(html));
 });
 
 server.get("/1024", () => {
@@ -110,6 +114,7 @@ server.get("/1024", () => {
     });
     html += `</pre><hr></div>`;
     return html;
+    //return new Response(compressor(html));
 });
 
 server.get("/256", () => {
@@ -122,13 +127,19 @@ server.get("/256", () => {
     });
     html += `</pre><hr></div>`;
     return html;
+    //return new Response(compressor(html));
 });
 
 // post request to return encoded route
 // curl -X POST http://localhost:4444/getroute -H "Content-Type: text/plain" -d 'flutter mane'
 // curl.exe -X POST http://localhost:4444/getroute -H "Content-Type: text/plain" -d 'flutter mane'
 server.post("/getroute", async (content) => {
-    return encoder(await content.request.text());
+    //return encoder(await content.request.text());
+    return new Response(encoder(await content.request.text()), {
+        headers: {
+            "Cache-Control": "no-store"
+        }
+    });
 });
 
 // port

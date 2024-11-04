@@ -1,3 +1,5 @@
+// encoder.ts
+
 function encoder(name: string) {
     if(name.includes(" ")) {
         name = name.replace(" ", "%20");
