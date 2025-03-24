@@ -37,6 +37,10 @@ const dirPathFull = "./pokemon_art/";
 const dirPath1024 = "./pokemon_art_1024/";
 const dirPath256 = "./pokemon_art_256/";
 for(const row of csv) {
+    if (!row.name || !row.file) {
+        console.log(`Skipping invalid row: ${JSON.stringify(row)}`);
+        continue;
+    }
     //console.log(row);
     // get name of pokemon
     let name: string = row.name.toLowerCase().toString();
