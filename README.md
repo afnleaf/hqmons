@@ -4,6 +4,8 @@
 
 A simple web server for high quality pokemon artwork, hosted on [chiy.uk](https://chiy.uk)
 
+In use as the image server for the [pokepastefix](https://github.com/afnleaf/pokepastefix) extension.
+
 ## API
 The basic get request you can make is `https://chiy.uk/{size}/{pokemon-name}`, `https://chiy.uk/full/bulbasaur` 
 
