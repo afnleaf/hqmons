@@ -13,7 +13,7 @@ import parse from "csv-simple-parser";
 import compressor from "./compressor.ts";
 import encoder from "./encoder.ts";
 
-const PORT = process.env.PORT || 4444;
+const PORT = process.env.PORT || 5555;
  
 // parse csv file with binds
 const filePath = "./src/dict.csv";
