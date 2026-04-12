@@ -34,7 +34,8 @@ server.get("/", () => compressor("./public/index.html"));
 server.get("/styles.css", () => compressor("./public/styles.css"));
 // putting the htmx file through the compressor mangles it via Elysia headers
 //server.get("/htmx", () => compressor("./public/htmx.min.js"));
-server.get("/htmx", () => Bun.file("./public/htmx.min.js"));
+//server.get("/htmx", () => Bun.file("./public/htmx.min.js"));
+// htmx loaded from CDN in index.html
 
 // make routes based on csv file
 const listRoutesFull: string[] = [];
