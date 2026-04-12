@@ -1,9 +1,18 @@
+# image folders do not go into github they are 3.7gb total
 pokemon_art
 pokemon_art_copy
 pokemon_art_resized
 pokemon_art_256
 pokemon_art_1024
+pokemon_art
+new_named_megas
+new_megas_images
+art
+old_art_folder
+
+# other
 node_modules
 .env
 server/bun.lockb
 server/public/htmx.min.js
+.DS_Store

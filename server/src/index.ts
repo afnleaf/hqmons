@@ -1,4 +1,9 @@
-//index.ts
+// index.ts
+/* 2026 04 12 - Pokemon ZA/Champions Update
+* 
+* added all new mega form images, but they are limited to the 530 by 530 sizes
+* removed the 1024 image size, no reason to have it, either you get 256 or full
+*/
 
 // node modules
 import { Elysia } from "elysia";
@@ -27,15 +32,15 @@ server.use(html());
 // serve index
 server.get("/", () => compressor("./public/index.html"));
 server.get("/styles.css", () => compressor("./public/styles.css"));
-server.get("/htmx", () => compressor("./public/htmx.min.js"));
+// putting the htmx file through the compressor mangles it via Elysia headers
+//server.get("/htmx", () => compressor("./public/htmx.min.js"));
+server.get("/htmx", () => Bun.file("./public/htmx.min.js"));
 
 // make routes based on csv file
 const listRoutesFull: string[] = [];
-const listRoutes1024: string[] = [];
 const listRoutes256: string[] = [];
-const dirPathFull = "./pokemon_art/";
-const dirPath1024 = "./pokemon_art_1024/";
-const dirPath256 = "./pokemon_art_256/";
+const dirPathFull = "./art/pokemon_art/";
+const dirPath256 = "./art/pokemon_art_256/";
 for(const row of csv) {
     if (!row.name || !row.file) {
         console.log(`Skipping invalid row: ${JSON.stringify(row)}`);
@@ -48,72 +53,28 @@ for(const row of csv) {
     name = encoder(name);
     // create route paths
     const routePathFull: string = `/full/${name}`;
-    const routePath1024: string = `/1024/${name}`;
     const routePath256: string = `/256/${name}`;
     // add routes to list
     listRoutesFull.push(routePathFull);
-    listRoutes1024.push(routePath1024);
     listRoutes256.push(routePath256);
     // create filepaths
     const filePathFull: string = `${dirPathFull}${row.file}`;
-    const filePath1024: string = `${dirPath1024}${row.file}`;
     const filePath256: string = `${dirPath256}${row.file}`;
     // create server routes
     server.get(routePathFull, () => compressor(filePathFull));
-    server.get(routePath1024, () => compressor(filePath1024));
     server.get(routePath256, () => compressor(filePath256));
     //server.get(routePath, () => Bun.file(filePath));
     // print
     console.log(`route: ${routePathFull} for ${filePathFull}`);
-    console.log(`route: ${routePath1024} for ${filePath1024}`);
     console.log(`route: ${routePath256} for ${filePath256}`);
 }
-
-// create html the old fashioned way
-/*
-server.get("/home", () => {
-    let html: string = ``;
-    html += `<h1>Index of server</h1><hr><pre>`;
-    html += `<a href="/full">/full</a><br>`;
-    html += `<a href="/1024">/1024</a><br>`;
-    html += `<a href="/256">/256</a><br>`;
-    html += `</pre><hr>`;
-    return html;
-});
-*/
-server.get("/home", () => {
-    let html: string = ``;
-    html += `<div hx-boost="true"><h1>Index of server</h1><hr><pre>`;
-    //html += `<a href="/full" hx-get="/full" hx-target="#content">/full</a><br>`;
-    //html += `<a href="/1024" hx-get="/1024" hx-target="#content">/1024</a><br>`;
-    //html += `<a href="/256" hx-get="/256" hx-target="#content">/256</a><br>`;
-    html += `<a href="/full">/full</a><br>`;
-    html += `<a href="/1024">/1024</a><br>`;
-    html += `<a href="/256">/256</a><br>`;
-    html += `</pre><hr></div>`;
-    return html;
-    //return new Response(compressor(html));
-});
 
 server.get("/full", () => {
     let html: string = ``;
     html += `<div hx-boost="true"><h1>Index of /pokemon_art/</h1><hr><pre hx-boost="false">`;
     //html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
-    html += `<a href="/home">../</a><br>`;
+    html += `<a href="/">../</a><br>`;
     listRoutesFull.forEach(route => {
-        html += `<a href="${route}">${route}</a><br>`;
-    });
-    html += `</pre><hr></div>`;
-    return html;
-    //return new Response(compressor(html));
-});
-
-server.get("/1024", () => {
-    let html: string = ``;
-    html += `<div hx-boost="true"><h1>Index of /pokemon_art_1024/</h1><hr><pre hx-boost="false">`;
-    //html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
-    html += `<a href="/home">../</a><br>`;
-    listRoutes1024.forEach(route => {
         html += `<a href="${route}">${route}</a><br>`;
     });
     html += `</pre><hr></div>`;
@@ -125,7 +86,7 @@ server.get("/256", () => {
     let html: string = ``;
     html += `<div hx-boost="true"><h1>Index of /pokemon_art_256/</h1><hr><pre hx-boost="false">`;
     //html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
-    html += `<a href="/home">../</a><br>`;
+    html += `<a href="/">../</a><br>`;
     listRoutes256.forEach(route => {
         html += `<a href="${route}">${route}</a><br>`;
     });

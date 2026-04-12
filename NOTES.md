@@ -44,3 +44,10 @@ full size
 1024x1024
 256x256
 ```
+
+## pokemon champions + pokemon za releases
+pokemon za dropped a bunch of new megas, yet a totally non showdown new experimental way to play the game. we need to add art for the new megas. 
+
+serebii net has the list https://www.serebii.net/legendsz-a/megaevolutions.shtml
+
+

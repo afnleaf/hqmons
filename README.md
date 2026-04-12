@@ -1,8 +1,8 @@
 # HQMONS
 
-<img src="https://chiy.uk/256/chi-yu">
+<img src="https://chiy.uk/256/chi-yu/">
 
-A simple web server for high quality pokemon artwork, hosted on [chiy.uk](https://chiy.uk)
+A simple web server for high quality pokemon artwork, hosted on [chiy.uk](https://chiy.uk/home)
 
 In use as the image server for the [pokepastefix](https://github.com/afnleaf/pokepastefix) extension.
 
@@ -27,9 +27,9 @@ flutter-mane
 An example usage for the /getroute api would be in combination with the [smogon dex](https://github.com/smogon/pokemon-showdown/blob/master/sim/DEX.md), which provides unencoded  pokemon names.
 
 ## Image Resolution 
-There are full quality (varying sizes), 1024x1024 and 256x256 resolution images found on the server, with the respective routes: 
+There are full quality (varying high quality sizes), and 256x256 resolution images found on the server, with the respective routes: 
 ```
 /full
-/1024
 /256
 ``` 
+The `/1024` 1024x1024 image size route has been deprecated.
