@@ -11,6 +11,7 @@ art
 old_art_folder
 
 # other
+.giverny/
 node_modules
 .env
 server/bun.lockb
