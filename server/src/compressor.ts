@@ -1,7 +1,6 @@
 //compressor.ts
 
 // function to compress all the static files that need to be served
-// add 1 year cache headers
 async function compressor(filePath: string) {
     try {
         // read file
@@ -11,12 +10,13 @@ async function compressor(filePath: string) {
         // convert file to single unsigned int byte array and compress
         const compressed = Bun.gzipSync(new Uint8Array(await file.arrayBuffer()));
         // create response content with header
+        // add 1 year cache headers
         return new Response(compressed, {
             headers: {
                 "Content-Type": contentType ?? "application/octet-stream",
                 "Content-Encoding": "gzip",
                 "Cache-Control": "public, max-age=31536000, immutable",
-                "CDN-Cache-Control": "max-age=31536000",
+                "CDN-Cache-Control": "max-age=31536000, stale-if-error=31536000",
                 "Vary": "Accept-Encoding",
                 "ETag": `"${Buffer.from(compressed).toString('base64').substring(0, 27)}"`,
             },
