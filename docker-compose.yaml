@@ -11,4 +11,5 @@ services:
     volumes:
       - ./art/pokemon_art:/server/art/pokemon_art
       - ./art/pokemon_art_256:/server/art/pokemon_art_256
+      - ./art/items:/server/art/items
     restart: unless-stopped

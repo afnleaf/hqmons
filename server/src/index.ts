@@ -94,7 +94,7 @@ for (const row of items) {
     // encode name as route, removing bad characters
     name = encoder(name);
     // create route paths
-    const routePathItem: string = `/item/${name}`;
+    const routePathItem: string = `/items/${name}`;
     // add routes to list
     listRoutesItems.push(routePathItem);
     // create filepaths
@@ -126,6 +126,18 @@ server.get("/256", () => {
     //html += `<a href="/home" hx-get="/home" hx-target="#content">../</a><br>`;
     html += `<a href="/">../</a><br>`;
     listRoutes256.forEach(route => {
+        html += `<a href="${route}">${route}</a><br>`;
+    });
+    html += `</pre><hr></div>`;
+    return html;
+    //return new Response(compressor(html));
+});
+
+server.get("/items", () => {
+    let html: string = ``;
+    html += `<div hx-boost="true"><h1>Index of /items/</h1><hr><pre hx-boost="false">`;
+    html += `<a href="/">../</a><br>`;
+    listRoutesItems.forEach(route => {
         html += `<a href="${route}">${route}</a><br>`;
     });
     html += `</pre><hr></div>`;
