@@ -17,12 +17,20 @@ const PORT = process.env.PORT || 5555;
  
 // parse csv file with binds
 const filePath = "./src/dict.csv";
+const filePathItem = "./src/items.csv";
+const itemFile = Bun.file(filePathItem);
 const dictFile = Bun.file(filePath);
 type pokepath = { 
     name: string, 
     file: string 
 };
-const csv: pokepath[] = parse(await dictFile.text(), {header: true}) as pokepath[];
+const csv: pokepath[] = parse(
+  await dictFile.text(), { header: true }
+) as pokepath[];
+
+const items: pokepath[] = parse(
+    await itemFile.text(), { header: true }
+) as pokepath[];
 
 // make elysia server
 const server = new Elysia();
@@ -40,8 +48,13 @@ server.get("/styles.css", () => compressor("./public/styles.css"));
 // make routes based on csv file
 const listRoutesFull: string[] = [];
 const listRoutes256: string[] = [];
+const listRoutesItems: string[] = [];
+
 const dirPathFull = "./art/pokemon_art/";
 const dirPath256 = "./art/pokemon_art_256/";
+const dirPathItems = "./art/items/";
+
+// loop mons
 for(const row of csv) {
     if (!row.name || !row.file) {
         console.log(`Skipping invalid row: ${JSON.stringify(row)}`);
@@ -68,6 +81,30 @@ for(const row of csv) {
     // print
     console.log(`route: ${routePathFull} for ${filePathFull}`);
     console.log(`route: ${routePath256} for ${filePath256}`);
+}
+
+// loop items
+for (const row of items) {
+    if (!row.name || !row.file) {
+        console.log(`Skipping invalid row: ${JSON.stringify(row)}`);
+        continue;
+    }
+    // get name of item
+    let name: string = row.name.toLowerCase().toString();
+    // encode name as route, removing bad characters
+    name = encoder(name);
+    // create route paths
+    const routePathItem: string = `/item/${name}`;
+    // add routes to list
+    listRoutesItems.push(routePathItem);
+    // create filepaths
+    const filePathItem: string = `${dirPathItems}${row.file}`;
+    // create server routes
+    server.get(routePathItem, () => compressor(filePathItem));
+    //server.get(routePath, () => Bun.file(filePath));
+    // print
+    console.log(`route: ${routePathItem} for ${filePathItem}`);
+
 }
 
 server.get("/full", () => {
